@@ -24,6 +24,12 @@ const userSchema = new Schema({
         required: true,
         max: 20,
     },
+    role: {
+        type: String,
+        default: "user",
+        enum: ["user", "admin"]
+    },
+
 }, { timestamps: true })
 
 module.exports = model("User", userSchema);
