@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const authJWT = require('../Middlewares/passport')
+const authJWT = require('..Middleware/Passport')
 const passport = require("passport");
 passport.use(authJWT)
 const User = require("../Models/userModel");
