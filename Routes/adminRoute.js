@@ -2,22 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 // --------- Import the controllers ----------
-const user_controller = require('../Controllers/userController');
-const { userRegister, userLogin } = require('../Utils/authUser');
+const userController = require('../Controllers/userController');
+const { userLogin } = require('../Utils/authUser');
+
+// -----------------------Admin User Functions ----------------------- //
+router.route("/listUser").get(userController.all_users);
+
+router.route("/detailsUser/:id").get(userController.user_details);
+
+router.route("/deleteUser").post(userController.user_delete);
 
 
-router.route("/list").get(user_controller.all_users);
-
-router.route("/details/:id").get(user_controller.user_details);
-
-router.route("/update").post(user_controller.user_update);
-
-router.route("/delete").post(user_controller.user_delete);
-
-router.post("/register", async(req, res) => {
-    await userRegister(req.body, res);
-});
-
+// ----------------- Admin login -------------------- //
 router.post("/login", async(req, res) => {
     await userLogin(req.body, res);
 });
