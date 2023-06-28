@@ -1,35 +1,42 @@
-'use strict'
-
-const { Schema, model } = require("mongoose");
-
-const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        max: 30
-    },
-    username: {
-        type: String,
-        required: true,
-        max: 30
-    },
-    email: {
-        type: String,
-        required: true,
-        max: 50,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        max: 20,
-    },
-    role: {
-        type: String,
-        default: "user",
-        enum: ["user", "admin"]
-    },
-
-}, { timestamps: true })
-
-module.exports = model("User", userSchema);
+module.exports = (sequelize, type) => {
+    return sequelize.define('User', {
+        user_id: {
+            type: type.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: type.STRING,
+            required: true,
+            max: 100
+        },
+        username: {
+            type: type.STRING,
+            required: true,
+            max: 100
+        },
+        password: {
+            type: type.STRING,
+            required: true,
+            max: 100
+        },
+        phone: {
+          type: type.STRING,
+          required: true,
+          unique: true,
+          max: 50
+        },
+        email: {
+          type: type.STRING,
+          required: true,
+          lowercase: true,
+          unique: true,
+          trim: true
+        },
+        role: {
+            type: type.STRING,
+            allowNull: false,
+            defaultValue: 'user'
+        },   
+    })
+}

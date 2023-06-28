@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const authJWT = require('..Middleware/Passport')
+const authJWT = require('../Middleware/Passport')
 const passport = require("passport");
 passport.use(authJWT)
-const User = require("../Models/userModel");
+const {User} = require('../Db');
 
 
 
@@ -13,6 +13,7 @@ const userRegister = async(req, res) => {
     try {
         //Validate the email
         let emailNotRegistered = await validateEmail(req.email);
+        console.log(req.email);
         if (!emailNotRegistered) {
             return res.status(400).json({
                 message: `El email esta actualmente registrado.`,
@@ -81,7 +82,7 @@ const userLogin = async(userCreds, res, req) => {
 //....... Email validate.............
 
 const validateEmail = async email => {
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ where: { email: email}});
     return user ? false : true;
 };
 

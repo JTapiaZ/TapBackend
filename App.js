@@ -1,17 +1,11 @@
 require('dotenv').config();
 console.clear();
+require('./Db');
 
 // ---------------------------------- //
 const express = require('express');
-const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-
-// Database Connection
-mongoose.connect(process.env.URLDB)
-    .then(() => {
-        console.log('¡Connection Successfully!');
-    });
 
 
 // Initialize the application
@@ -57,9 +51,11 @@ app.use(cors());
 
 
 
-
 //Routes
 app.use(process.env.ROUTE, require(process.env.FILEROUTE));
+app.use(process.env.ROUTE1, require(process.env.FILEROUTE1));
+app.use(process.env.ROUTE2, require(process.env.FILEROUTE2));
+
 
 // Run the server
 app.listen(process.env.PORT, () => {

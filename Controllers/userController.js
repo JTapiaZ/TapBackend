@@ -1,9 +1,9 @@
-const User = require('../Models/userModel');
+const {User} = require('../Db');
 
 
 // ------------- retrieve and return all users ------------------
 exports.all_users = (req, res) => {
-    User.find()
+    User.findAll()
         .then(data => {
             var message = "";
             if (data === undefined || data.length == 0) message = "Persons not found!";
@@ -26,7 +26,7 @@ exports.all_users = (req, res) => {
 
 // --------- find a user by id -------------
 exports.user_details = (req, res) => {
-    User.findById(req.params.id)
+    User.findByPk(req.params.id)
         .then(data => {
             if (!data) {
                 return res.status(404).send({
@@ -56,8 +56,7 @@ exports.user_details = (req, res) => {
 
 // delete a user with the specified id.
 exports.user_delete = (req, res) => {
-    const { name } = req.body
-    User.findOneAndDelete({ name })
+    User.destroy({ where: { id : req.params.id }})
         .then(data => {
             if (!data) {
                 return res.status(404).send({
