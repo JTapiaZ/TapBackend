@@ -42,7 +42,7 @@ exports.all_ingredient = (req, res) => {
             var message = "";
             if (data === undefined || data.length == 0) message = "Ingredient not found";
             else message = "Ingredient found";
-            res.send({
+            res.json({
                 success: true,
                 message: message,
                 data: data

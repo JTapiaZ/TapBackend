@@ -49,9 +49,10 @@ const userLogin = async(userCreds, res, req) => {
     }
 
     //First check if the username is in the database
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: {email:email} });
+    // console.log(user);
     if (!user) {
-        return res.status(400).send("¡Usuario no encontrado, credenciales invalidas para iniciar sesion!");
+        return res.status(400).send("¡Por favor ingrese un email y una contraseña valida!");
     }
 
     //Now check for the password
@@ -74,7 +75,7 @@ const userLogin = async(userCreds, res, req) => {
             ...result
         });
     } else {
-        return res.status(403).send("Contraseña incorrecta.");
+        return res.status(403).send("¡Por favor ingrese un email y una contraseña valida!");
     }
 };
 
